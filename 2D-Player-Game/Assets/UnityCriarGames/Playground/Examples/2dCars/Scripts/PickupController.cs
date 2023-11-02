@@ -18,9 +18,9 @@ public class PickupController : MonoBehaviour
     //[SerializeField]    private Button GasButton;
 
     //PUBLIC VARIABLES
-    public float gas = 1f;
-    public float gasConsumer = 0.01f;       
-
+    [SerializeField] public float gas;
+    [SerializeField] public float gasConsumer;       
+    [SerializeField] private AudioClip motorCar;
     //PRIVATE VARIABLES
     private float movement;
 
@@ -89,25 +89,29 @@ public class PickupController : MonoBehaviour
 
     public void GasButtonPressed()
     {
-        //movement = 1.0f;
         Debug.Log(carDrive);
-        
+
         if (gas > 0)
         {
             tireFrontRigdBody.AddTorque(-carDrive * speed * Time.fixedDeltaTime);
             tireBackRigdBody.AddTorque(-carDrive * speed * Time.fixedDeltaTime);
             carBody.AddTorque(-carDrive * speedCar * Time.fixedDeltaTime);
 
-            if (carDrive < 20){
+            if (carDrive < 25)
+            {
                 carDrive++;
             }
         }
 
-        gas -= gasConsumer * Mathf.Abs(movement) * Time.fixedDeltaTime * 10;
+        gas -= gasConsumer * Time.fixedDeltaTime * 10; // Usando um valor fixo para o consumo de gasolina
 
         Debug.Log(carDrive);
+        Debug.Log("Gasolina: " + gas);
+
+        AudioSource.PlayClipAtPoint(motorCar, transform.position);
     }
 
+    
     public void BrakeButtonPressed()
     {
         carDrive = 1;

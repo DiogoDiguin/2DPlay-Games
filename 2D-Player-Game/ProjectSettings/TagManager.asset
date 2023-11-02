@@ -13,6 +13,9 @@ TagManager:
   - Obstacle
   - CoinMaster
   - Gas
+  - SuperGas
+  - PortalIda
+  - PortalDestino
   layers:
   - Default
   - TransparentFX
